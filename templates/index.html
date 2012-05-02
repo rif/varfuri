@@ -1,5 +1,25 @@
 {{define "title"}}Hărți{{end}}
 {{define "content"}}
-Text introductiv despre Vârfurile.
+<input type="text" id="filter", placeholder="Cauta"/>
+
+<ul id="maps">
+{{range .Maps}}
+<li><a href="/harta?h={{.}}">{{pretty .}}</a></li>
 {{end}}
-{{define "extrascripts"}}{{end}}
+</ul>
+{{end}}
+{{define "extrascripts"}}
+<script type="text/javascript">
+$(function(){
+	$.fn.ulFilter = function(ulSelector) {
+    ul = $(ulSelector);   
+    updateUl = function() {
+        ul.find('li').hide();       
+        ul.find('li>a:contains("' + $(this).val() + '")').parents('li').show();
+    }
+    $(this).keyup(updateUl);
+	}
+	$("#filter").ulFilter("#maps");
+});
+</script>
+{{end}}

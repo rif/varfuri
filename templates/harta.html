@@ -2,7 +2,7 @@
 {{define "content"}}
 <a href="#" onclick="if(TJPzoomswitch(document.getElementById('unique113'))) {this.innerHTML='it\'s on, switch it OFF'} else {this.innerHTML='it\'s off, switch it ON'}; return false;">it's off, switch it ON</a>
 <div>
-	<img src="/img/maps/1_12.png" onmouseover="TJPzoomif(this);" id="unique113">
+	<img src="/img/maps/{{.}}" onmouseover="TJPzoomif(this);" id="unique113">
 </div>
 {{end}}
 {{define "extrascripts"}}{{end}}
