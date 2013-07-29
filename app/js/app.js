@@ -19,7 +19,11 @@ angular.module('varfuri', ['ngResource'])
   		if (typeof mes === 'undefined') {
   			$scope.contactResponse = "Completati campurile mesajului!";
 		} else {
-  			$http.post("/contact", {"from":mes.from, "email":mes.email, "content":mes.content})
+  			$http({
+  				url: "/contact",
+  				method: 'POST',
+  				data: $.param(mes),
+  				headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
 			.success(function(data, status, headers, config) {
 			    $scope.contactResponse = "Multumesc pentru mesaj!";
 			}).error(function(data, status, headers, config) {

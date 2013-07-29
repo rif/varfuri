@@ -108,6 +108,7 @@ func hartaPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func contactPage(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("%#v", r)
 	c := appengine.NewContext(r)
 	if r.Method == "POST" {
 		name := r.FormValue("from")
@@ -116,7 +117,7 @@ func contactPage(w http.ResponseWriter, r *http.Request) {
 		msg := &mail.Message{
 			Sender:  "Radu Fericean (Varfurile Harti) <fericean@gmail.com>",
 			To:      []string{"Radu Fericean <radu@fericean.ro>"},
-			Subject: fmt.Sprintf("Mesaj Varfuri0Harti de la %s (%s)", name, email),
+			Subject: fmt.Sprintf("Mesaj Harti Varfuri de la %s (%s)", name, email),
 			Body:    content,
 		}
 		if err := mail.Send(c, msg); err != nil {
