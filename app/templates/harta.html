@@ -1,6 +1,6 @@
 {{define "title"}}Hărți{{end}}
 {{define "content"}}
-<a class="btn btn-primary btn-large" id="lupa" href="#" onclick="if(TJPzoomswitch(document.getElementById('unique113'))) {this.innerHTML='Dezactivează lupa <i class=\'icon-search icon-white\'></i>'} else {this.innerHTML='Activează lupa <i class=\'icon-search icon-white\'></i>'}; return false;">Activează lupa <i class="icon-search icon-white"></i></a>
+<a class="button" id="lupa" href="#" onclick="if(TJPzoomswitch(document.getElementById('unique113'))) {this.innerHTML='Dezactivează lupa <i class=\'icon-search icon-white\'></i>'} else {this.innerHTML='Activează lupa <i class=\'icon-search icon-white\'></i>'}; return false;">Activează lupa</a>
 <h3>Folosire lupă:</h3>
 <ul>
 	<li>Mișcați lupa deasupra hărții pentru mărire</li>
@@ -8,10 +8,12 @@
 	<li>Apăsați concomitent butoanele 1+2 ale mouse-ului și mișcați mouse-ul stanga/dreapta pentru creșterea/micșorarea zonei de zoom</li>
 </ul>
 <div>
-	<img src="/img/maps/{{.}}" onmouseover="TJPzoomif(this);" id="unique113"/>
+	<img src="/img/maps/{{.harta}}" onmouseover="TJPzoomif(this);" id="unique113"/>
 </div>
 {{end}}
 {{define "extrascripts"}}
+<script src="/lib/tjpzoom/tjpzoom.js"></script>
+<script src="/lib/tjpzoom/tjpzoom_config_smart.js"></script> 
 <script type="text/javascript">
 	var TJPzoomwidth=320;
 	var TJPzoomheight=200;

@@ -1,23 +1,25 @@
 application: varfuri
-version: 1
+version: 2
 runtime: go
 api_version: go1
 
 handlers:
 - url: /css
-  static_dir: css
+  static_dir: app/css
 - url: /img
-  static_dir: img
+  static_dir: app/img
 - url: /js
-  static_dir: js
+  static_dir: app/js
+- url: /lib
+  static_dir: app/lib
 - url: /dropshadow
-  static_dir: img/dropshadow
+  static_dir: app/img/dropshadow
 - url: /favicon\.ico
-  static_files: img/favicon.ico
-  upload: img/favicon\.ico
+  static_files: app/img/favicon.ico
+  upload: app/img/favicon\.ico
 - url: /google4b899b9e0462f0cd\.html
-  static_files: templates/google4b899b9e0462f0cd.html
-  upload: templates/google4b899b9e0462f0cd\.html
+  static_files: app/templates/google4b899b9e0462f0cd.html
+  upload: app/templates/google4b899b9e0462f0cd\.html
 - url: /.*
   script: _go_app
   

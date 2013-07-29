@@ -1,0 +1,23 @@
+{{define "title"}}Contact{{end}}
+{{define "content"}}
+
+<div class="row" ng-controller="ContactCtrl">
+    <div class="large-12 columns">
+		<h2>Trimiteți un mesaj creatorului site-ului</h2> 
+		<div id="contact-wrap">	
+			<form novalidate id="contact-form">
+				<div><label for="from">Numele dvs.</label><input type="text" name="from" ng-model="message.from" required/></div>
+				<div><label for="email">Email</label><input type="email" name="email" ng-model="message.email" required/></div>
+				<div><label for="content">Mesaj</label><textarea name="content" rows="3" cols="60" ng-model="message.content" required></textarea></div>
+				<div>
+					<button ng-click="sendMessage(message)">Send Message!</button>
+					<span class="alert-box secondary"> {[{contactResponse}]}</span>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{{end}}
+
+{{define "extrascripts"}}
+{{end}}

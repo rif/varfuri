@@ -4,100 +4,104 @@ import (
 	//"fmt"
 	"appengine"
 	"appengine/mail"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
-	"strings"
 )
+
+type MapImage struct {
+	Name string
+	Img  string
+}
 
 var (
-	maps = []string{"avramiancu_bradatel.jpg",
-		"avramiancu_dealu_livada_deal.jpg",
-		"avramiancu_dulalau.jpg",
-		"avramiancu_generala.jpg",
-		"avramiancu_glemeia.jpg",
-		"avramiancu_index_1.jpg",
-		"avramiancu_index_2.jpg",
-		"avramiancu_index_3.jpg",
-		"avramiancu_index_4.jpg",
-		"avramiancu_index_5.jpg",
-		"avramiancu_index_6.jpg",
-		"avramiancu_index_7.jpg",
-		"avramiancu_index_8.jpg",
-		"avramiancu_index_9.jpg",
-		"avramiancu_lunca.jpg",
-		"avramiancu_magura_tacasele.jpg",
-		"avramiancu_negulesti.jpg",
-		"avramiancu_tacasele.jpg",
-		"varfurile_casoaie_1.jpg",
-		"varfurile_casoaie_2.jpg",
-		"varfurile_casoaie_3.jpg",
-		"varfurile_glemeie_1.jpg",
-		"varfurile_glemeie_2.jpg",
-		"varfurile_heread.jpg",
-		"varfurile_heredut.jpg",
-		"varfurile_index_10.jpg",
-		"varfurile_index_11.jpg",
-		"varfurile_index_12.jpg",
-		"varfurile_index_13.jpg",
-		"varfurile_index_14.jpg",
-		"varfurile_index_1.jpg",
-		"varfurile_index_2.jpg",
-		"varfurile_index_3.jpg",
-		"varfurile_index_4.jpg",
-		"varfurile_index_5.jpg",
-		"varfurile_index_6.jpg",
-		"varfurile_index_7.jpg",
-		"varfurile_index_8.jpg",
-		"varfurile_index_9.jpg",
-		"varfurile_la_cris.jpg",
-		"varfurile_magura_1.jpg",
-		"varfurile_magura_2.jpg",
-		"varfurile_mlaca.jpg",
-		"varfurile_zaloage.jpg",
-		"vidra_generala.jpg",
-		"vidra_ilicesti.jpg",
-		"vidra_index_1.jpg",
-		"vidra_index_2.jpg",
-		"vidra_index_3.jpg",
-		"vidra_index_4.jpg",
-		"vidra_index_5.jpg",
-		"vidra_index_6.jpg",
-		"vidra_index_7.jpg",
-		"vidra_index_8.jpg",
-		"vidra_mageresti_mihutesti.jpg",
-		"vidra_mageresti.jpg",
-		"vidra_mihutesti.jpg",
-		"vidra_petrisoresti.jpg",
-		"vidra_ceva.jpg"}
+	maps = []*MapImage{
+		&MapImage{"Avram Iancu Bradatel", "avramiancu_bradatel.jpg"},
+		&MapImage{"Avram Iancu Dealu Livada Deal", "avramiancu_dealu_livada_deal.jpg"},
+		&MapImage{"Avram Iancu Dulalau", "avramiancu_dulalau.jpg"},
+		&MapImage{"Avram Iancu Generala", "avramiancu_generala.jpg"},
+		&MapImage{"Avram Iancu Glemeia", "avramiancu_glemeia.jpg"},
+		&MapImage{"Avram Iancu index 1", "avramiancu_index_1.jpg"},
+		&MapImage{"Avram Iancu index 2", "avramiancu_index_2.jpg"},
+		&MapImage{"Avram Iancu index 3", "avramiancu_index_3.jpg"},
+		&MapImage{"Avram Iancu index 4", "avramiancu_index_4.jpg"},
+		&MapImage{"Avram Iancu index 5", "avramiancu_index_5.jpg"},
+		&MapImage{"Avram Iancu index 6", "avramiancu_index_6.jpg"},
+		&MapImage{"Avram Iancu index 7", "avramiancu_index_7.jpg"},
+		&MapImage{"Avram Iancu index 8", "avramiancu_index_8.jpg"},
+		&MapImage{"Avram Iancu index 9", "avramiancu_index_9.jpg"},
+		&MapImage{"Avram Iancu Lunca", "avramiancu_lunca.jpg"},
+		&MapImage{"Avram Iancu Magura Tacasele", "avramiancu_magura_tacasele.jpg"},
+		&MapImage{"Avram Iancu Negulesti", "avramiancu_negulesti.jpg"},
+		&MapImage{"Avram Iancu Tacasele", "avramiancu_tacasele.jpg"},
+		&MapImage{"Varfurile Casoaie 1", "varfurile_casoaie_1.jpg"},
+		&MapImage{"Varfurile Casoaie 2", "varfurile_casoaie_2.jpg"},
+		&MapImage{"Varfurile Casoaie 3", "varfurile_casoaie_3.jpg"},
+		&MapImage{"Varfurile Glemeie 1", "varfurile_glemeie_1.jpg"},
+		&MapImage{"Varfurile Glemeie 2", "varfurile_glemeie_2.jpg"},
+		&MapImage{"Varfurile Heread", "varfurile_heread.jpg"},
+		&MapImage{"Varfurile Heredut", "varfurile_heredut.jpg"},
+		&MapImage{"Varfurile index 10", "varfurile_index_10.jpg"},
+		&MapImage{"Varfurile index 11", "varfurile_index_11.jpg"},
+		&MapImage{"Varfurile index 12", "varfurile_index_12.jpg"},
+		&MapImage{"Varfurile index 13", "varfurile_index_13.jpg"},
+		&MapImage{"Varfurile index 14", "varfurile_index_14.jpg"},
+		&MapImage{"Varfurile index 1", "varfurile_index_1.jpg"},
+		&MapImage{"Varfurile index 2", "varfurile_index_2.jpg"},
+		&MapImage{"Varfurile index 3", "varfurile_index_3.jpg"},
+		&MapImage{"Varfurile index 4", "varfurile_index_4.jpg"},
+		&MapImage{"Varfurile index 5", "varfurile_index_5.jpg"},
+		&MapImage{"Varfurile index 6", "varfurile_index_6.jpg"},
+		&MapImage{"Varfurile index 7", "varfurile_index_7.jpg"},
+		&MapImage{"Varfurile index 8", "varfurile_index_8.jpg"},
+		&MapImage{"Varfurile index 9", "varfurile_index_9.jpg"},
+		&MapImage{"Varfurile la Cris", "varfurile_la_cris.jpg"},
+		&MapImage{"Varfurile Magura 1", "varfurile_magura_1.jpg"},
+		&MapImage{"Varfurile Magura 2", "varfurile_magura_2.jpg"},
+		&MapImage{"Varfurile Mlaca", "varfurile_mlaca.jpg"},
+		&MapImage{"Varfurile Zaloage", "varfurile_zaloage.jpg"},
+		&MapImage{"Vidra generala", "vidra_generala.jpg"},
+		&MapImage{"Vidra Ilicesti", "vidra_ilicesti.jpg"},
+		&MapImage{"Vidra index 1", "vidra_index_1.jpg"},
+		&MapImage{"Vidra index 2", "vidra_index_2.jpg"},
+		&MapImage{"Vidra index 3", "vidra_index_3.jpg"},
+		&MapImage{"Vidra index 4", "vidra_index_4.jpg"},
+		&MapImage{"Vidra index 5", "vidra_index_5.jpg"},
+		&MapImage{"Vidra index 6", "vidra_index_6.jpg"},
+		&MapImage{"Vidra index 7", "vidra_index_7.jpg"},
+		&MapImage{"Vidra index 8", "vidra_index_8.jpg"},
+		&MapImage{"Vidra Mageresti Mihutesti", "vidra_mageresti_mihutesti.jpg"},
+		&MapImage{"Vidra Mageresti", "vidra_mageresti.jpg"},
+		&MapImage{"Vidra Mihutesti", "vidra_mihutesti.jpg"},
+		&MapImage{"Vidra Petrisoresti", "vidra_petrisoresti.jpg"},
+		&MapImage{"Vidra ceva", "vidra_ceva.jpg"},
+	}
 )
 
-func PrettyName(fn string)(pretty string) {
-	parts := strings.Split(fn , "_")
-	for _, p := range(parts){
-		pretty += strings.TrimRight(p, ".jpg") + " "
-	}
-	return
+type SelectedPage struct {
+	IndexSelected   bool
+	ContactSelected bool
 }
 
 func mainPage(w http.ResponseWriter, r *http.Request) {
-	t, err := template.New("maps").Funcs(template.FuncMap{"pretty": PrettyName}).ParseFiles("templates/base.html", "templates/index.html")
+	t, err := template.New("maps").ParseFiles("app/templates/base.html", "app/templates/index.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}	
-	err = t.ExecuteTemplate(w, "base.html", map[string][]string{"Maps":maps})
+	}
+	err = t.ExecuteTemplate(w, "base.html", map[string]interface{}{"page": &SelectedPage{true, false}})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
 func hartaPage(w http.ResponseWriter, r *http.Request) {
-	harta := r.FormValue("h") 
-	t, err := template.ParseFiles("templates/base.html", "templates/harta.html")
+	harta := r.FormValue("h")
+	t, err := template.ParseFiles("app/templates/base.html", "app/templates/harta.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-	err = t.Execute(w, harta)
+	err = t.Execute(w, map[string]interface{}{"page": &SelectedPage{false, false}, "harta": harta})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -120,12 +124,21 @@ func contactPage(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	t, _ := template.ParseFiles("templates/base.html", "templates/contact.html")
-	t.Execute(w, nil)
+	t, _ := template.ParseFiles("app/templates/base.html", "app/templates/contact.html")
+	err := t.Execute(w, map[string]interface{}{"page": &SelectedPage{false, true}})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func mapsPage(w http.ResponseWriter, r *http.Request) {
+	enc := json.NewEncoder(w)
+	enc.Encode(maps)
 }
 
 func init() {
 	http.HandleFunc("/", mainPage)
 	http.HandleFunc("/harta", hartaPage)
 	http.HandleFunc("/contact", contactPage)
+	http.HandleFunc("/maps", mapsPage)
 }

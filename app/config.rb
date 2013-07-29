@@ -1,4 +1,6 @@
+require 'zurb-foundation'
 # Require any additional compass plugins here.
+
 
 # Set this to the root of your project when deployed:
 http_path = "/"
@@ -8,7 +10,7 @@ images_dir = "img"
 javascripts_dir = "js"
 
 # You can select your preferred output style here (can be overridden via the command line):
-output_style = :compressed #:expanded or :nested or :compact or :compressed
+output_style = :compressed  or :expanded or :nested or :compact
 
 # To enable relative paths to assets via compass helper functions. Uncomment:
 # relative_assets = true
