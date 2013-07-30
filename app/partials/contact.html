@@ -8,7 +8,7 @@
 				<div><label for="content">Mesaj</label><textarea name="content" rows="3" cols="60" ng-model="message.content" required></textarea></div>
 				<div>
 					<button ng-click="sendMessage(message)">Send Message!</button>
-					<span class="alert-box secondary"> {[{contactResponse}]}</span>
+					<span class="alert-box secondary"> {{contactResponse}}</span>
 				</div>
 			</form>
 		</div>

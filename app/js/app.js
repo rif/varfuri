@@ -1,9 +1,6 @@
 'use strict';
 
 angular.module('varfuri', ['ngResource'])
-.config(function($interpolateProvider){
-        $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
-})
 .config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/', {templateUrl: 'partials/index.html', controller: 'VarfuriCtrl'});
     $routeProvider.when('/harta/:hartaImg', {templateUrl: 'partials/harta.html', controller: 'HartaCtrl'});

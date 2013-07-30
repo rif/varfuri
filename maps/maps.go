@@ -6,7 +6,6 @@ import (
 	"appengine/mail"
 	"encoding/json"
 	"fmt"
-	"html/template"
 	"net/http"
 )
 
@@ -79,17 +78,6 @@ var (
 	}
 )
 
-func mainPage(w http.ResponseWriter, r *http.Request) {
-	t, err := template.New("maps").ParseFiles("app/base.html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-	err = t.ExecuteTemplate(w, "base.html", nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
-
 func contactPage(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
 	if r.Method == "POST" {
@@ -116,7 +104,9 @@ func mapsPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func init() {
-	http.HandleFunc("/", mainPage)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "app/base.html")
+	})
 	http.HandleFunc("/contact", contactPage)
 	http.HandleFunc("/maps", mapsPage)
 }
