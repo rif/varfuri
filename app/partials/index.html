@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="large-12 columns">
+		<input type="text" id="filter" placeholder="Cauta" ng-model="mapFilter"/>
+		<ul id="maps">
+			<li ng-repeat="map in maps | filter:mapFilter |orderBy:'Name'"><a href="#/harta/{[{map.Img}]}">{[{map.Name}]}</a></li>
+		</ul>		
+	</div>
+</div>

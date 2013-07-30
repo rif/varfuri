@@ -12,14 +12,16 @@ handlers:
   static_dir: app/js
 - url: /lib
   static_dir: app/lib
+- url: /partials
+  static_dir: app/partials
 - url: /dropshadow
   static_dir: app/img/dropshadow
 - url: /favicon\.ico
   static_files: app/img/favicon.ico
   upload: app/img/favicon\.ico
 - url: /google4b899b9e0462f0cd\.html
-  static_files: app/templates/google4b899b9e0462f0cd.html
-  upload: app/templates/google4b899b9e0462f0cd\.html
+  static_files: app/google4b899b9e0462f0cd.html
+  upload: app/google4b899b9e0462f0cd\.html
 - url: /.*
   script: _go_app
   

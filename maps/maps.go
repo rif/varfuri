@@ -79,36 +79,18 @@ var (
 	}
 )
 
-type SelectedPage struct {
-	IndexSelected   bool
-	ContactSelected bool
-}
-
 func mainPage(w http.ResponseWriter, r *http.Request) {
-	t, err := template.New("maps").ParseFiles("app/templates/base.html", "app/templates/index.html")
+	t, err := template.New("maps").ParseFiles("app/base.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-	err = t.ExecuteTemplate(w, "base.html", map[string]interface{}{"page": &SelectedPage{true, false}})
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
-
-func hartaPage(w http.ResponseWriter, r *http.Request) {
-	harta := r.FormValue("h")
-	t, err := template.ParseFiles("app/templates/base.html", "app/templates/harta.html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-	err = t.Execute(w, map[string]interface{}{"page": &SelectedPage{false, false}, "harta": harta})
+	err = t.ExecuteTemplate(w, "base.html", nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
 func contactPage(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("%#v", r)
 	c := appengine.NewContext(r)
 	if r.Method == "POST" {
 		name := r.FormValue("from")
@@ -125,11 +107,7 @@ func contactPage(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	t, _ := template.ParseFiles("app/templates/base.html", "app/templates/contact.html")
-	err := t.Execute(w, map[string]interface{}{"page": &SelectedPage{false, true}})
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	fmt.Fprint(w, "ok")
 }
 
 func mapsPage(w http.ResponseWriter, r *http.Request) {
@@ -139,7 +117,6 @@ func mapsPage(w http.ResponseWriter, r *http.Request) {
 
 func init() {
 	http.HandleFunc("/", mainPage)
-	http.HandleFunc("/harta", hartaPage)
 	http.HandleFunc("/contact", contactPage)
 	http.HandleFunc("/maps", mapsPage)
 }

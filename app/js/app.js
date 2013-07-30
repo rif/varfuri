@@ -4,15 +4,24 @@ angular.module('varfuri', ['ngResource'])
 .config(function($interpolateProvider){
         $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 })
+.config(['$routeProvider', function($routeProvider) {
+    $routeProvider.when('/', {templateUrl: 'partials/index.html', controller: 'VarfuriCtrl'});
+    $routeProvider.when('/harta/:hartaImg', {templateUrl: 'partials/harta.html', controller: 'HartaCtrl'});
+    $routeProvider.when('/contact', {templateUrl: 'partials/contact.html', controller: 'ContactCtrl'});
+    $routeProvider.otherwise({redirectTo: '/'});
+}])
 .factory('Map', function($resource){
 	return $resource('/maps', {}, {
 		query: {method:'GET', params:{}, isArray:true}
 	});
 })
-.controller('VarfuriCtrl', function($scope, $http, Map) {
+.controller('VarfuriCtrl', function($scope, Map) {
   	$scope.maps = Map.query();
 })
-.controller('ContactCtrl', function($scope, $http, Map) {
+.controller('HartaCtrl', function($scope, $routeParams) {
+    $scope.hartaImg = $routeParams.hartaImg;
+})
+.controller('ContactCtrl', function($scope, $http) {
   	$scope.contactResponse = "";
 
   	$scope.sendMessage = function(mes){
