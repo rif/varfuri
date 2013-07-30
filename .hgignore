@@ -3,3 +3,4 @@ syntax: glob
 .sass-cache
 img/maps
 *.sublime*
+.idea
