@@ -1,7 +1,6 @@
 package maps
 
 import (
-	//"fmt"
 	"appengine"
 	"appengine/mail"
 	"encoding/json"
