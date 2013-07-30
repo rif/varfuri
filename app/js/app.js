@@ -8,7 +8,7 @@ angular.module('varfuri', ['ngResource'])
     $routeProvider.otherwise({redirectTo: '/'});
 }])
 .factory('Map', function($resource){
-	return $resource('/maps', {}, {
+	return $resource('/api/maps', {}, {
 		query: {method:'GET', params:{}, isArray:true}
 	});
 })
@@ -26,7 +26,7 @@ angular.module('varfuri', ['ngResource'])
   			$scope.contactResponse = "Completati campurile mesajului!";
 		} else {
   			$http({
-  				url: "/contact",
+  				url: "/api/contact",
   				method: 'POST',
   				data: $.param(mes),
   				headers: {'Content-Type': 'application/x-www-form-urlencoded'}})

@@ -4,6 +4,9 @@ runtime: go
 api_version: go1
 
 handlers:
+- url: /
+  static_files: app/base.html
+  upload: app/base.html
 - url: /css
   static_dir: app/css
 - url: /img
@@ -22,6 +25,6 @@ handlers:
 - url: /google4b899b9e0462f0cd\.html
   static_files: app/google4b899b9e0462f0cd.html
   upload: app/google4b899b9e0462f0cd\.html
-- url: /.*
+- url: /api/.*
   script: _go_app
   

@@ -104,9 +104,6 @@ func mapsPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func init() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "app/base.html")
-	})
-	http.HandleFunc("/contact", contactPage)
-	http.HandleFunc("/maps", mapsPage)
+	http.HandleFunc("/api/contact", contactPage)
+	http.HandleFunc("/api/maps", mapsPage)
 }
