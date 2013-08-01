@@ -1,6 +1,6 @@
 syntax: glob
 *~
 .sass-cache
-img/maps
+img/maps/*.jpg
 *.sublime*
 .idea
