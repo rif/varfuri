@@ -36,5 +36,5 @@ angular.module('varfuri', ['ngResource'])
                         $scope.contactResponse = "Eroare: " + status;
                     });
             }
-        }
+        };
     });
