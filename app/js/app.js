@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('varfuri', ['ngResource'])
+angular.module('varfuri', ['ngResource', 'ngRoute', 'ngAnimate'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/', {templateUrl: 'partials/index.html', controller: 'VarfuriCtrl'});
         $routeProvider.when('/harta/:hartaImg', {templateUrl: 'partials/harta.html', controller: 'HartaCtrl'});

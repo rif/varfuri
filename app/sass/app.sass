@@ -75,14 +75,14 @@ img
 #lupa
     font-weight: bold
 
-input.ng-invalid.ng-dirty
+input#contact-form.ng-invalid.ng-dirty
     background-color: #FA787E
 
-input.ng-valid.ng-dirty
+input#contact-form.ng-valid.ng-dirty
     background-color: #78FA89
 
-.animate-enter,
-.animate-leave 
+.animate.ng-enter,
+.animate.ng-leave 
     -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all
     -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all
     -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all
@@ -92,8 +92,8 @@ input.ng-valid.ng-dirty
     display: block
     
      
-.animate-leave.animate-leave-active,
-.animate-enter 
+.animate.ng-leave.animate.ng-leave-active,
+.animate.ng-enter 
     -webkit-transform: scaleY(0)
     -moz-transform: scaleY(0)
     -ms-transform: scaleY(0)
@@ -103,8 +103,8 @@ input.ng-valid.ng-dirty
     opacity: 0
     
      
-.animate-enter.animate-enter-active,
-.animate-leave 
+.animate.ng-enter.animate.ng-enter-active,
+.animate.ng-leave 
     -webkit-transform: scaleY(1)
     -moz-transform: scaleY(1)
     -ms-transform: scaleY(1)
@@ -114,25 +114,13 @@ input.ng-valid.ng-dirty
     opacity: 1
     
 
-.slide-enter,
-.slide-leave
-    -webkit-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all
-    -moz-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all
-    -ms-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all
-    -o-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all
-    transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all
-    
-     
-.slide-enter 
-    left: 100%
-    
-.slide-enter.slide-enter-active 
-    left: 0
-    
-     
-.slide-leave 
-    left: 0
-    
-.slide-leave.slide-leave-active
-    left: -100%
-    
+.reveal-animation.ng-enter
+    -webkit-transition: 1s linear all /* Safari/Chrome */
+    -moz-transition: 1s linear all /* Firefox */
+    -o-transition: 1s linear all /* Opera */
+    transition: 1s linear all /* IE10+ and Future Browsers */
+    opacity: 0
+ 
+.reveal-animation.ng-enter.ng-enter-active
+    opacity: 1
+
