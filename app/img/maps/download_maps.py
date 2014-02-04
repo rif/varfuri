@@ -64,7 +64,7 @@ maps = (
 
 for img in maps:
 	print("Downloading: " + img)
-	imgurl = 'http://varfuri.appspot.com/img/maps/' + img
+	imgurl = 'http://1.varfuri.appspot.com/img/maps/' + img
 	req = urllib2.Request(imgurl)
 	f = urllib2.urlopen(req)
 	img_data = f.read()
