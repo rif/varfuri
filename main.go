@@ -1,11 +1,11 @@
-package maps
+package main
 
 import (
-	"appengine"
-	"appengine/mail"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
+	"os"
 )
 
 type MapImage struct {
@@ -78,10 +78,9 @@ var (
 )
 
 func contactPage(w http.ResponseWriter, r *http.Request) {
-	c := appengine.NewContext(r)
-	c.Errorf("%#v", r.Form)
+	log.Printf("%#v", r.Form)
 	if r.Method == "POST" {
-		name := r.FormValue("from")
+		/*name := r.FormValue("from")
 		email := r.FormValue("email")
 		content := r.FormValue("content")
 		msg := &mail.Message{
@@ -91,8 +90,8 @@ func contactPage(w http.ResponseWriter, r *http.Request) {
 			Body:    content,
 		}
 		if err := mail.Send(c, msg); err != nil {
-			c.Errorf("Couldn't send email: %v", err)
-		}
+			log.Printf("Couldn't send email: %v", err)
+		}*/
 		return
 	}
 	fmt.Fprint(w, "ok")
@@ -103,7 +102,18 @@ func mapsPage(w http.ResponseWriter, r *http.Request) {
 	enc.Encode(maps)
 }
 
-func init() {
+func main() {
 	http.HandleFunc("/api/contact", contactPage)
 	http.HandleFunc("/api/maps", mapsPage)
+	   port := os.Getenv("PORT")
+        if port == "" {
+                port = "8080"
+                log.Printf("Defaulting to port %s", port)
+        }
+
+        log.Printf("Listening on port %s", port)
+        if err := http.ListenAndServe(":"+port, nil); err != nil {
+                log.Fatal(err)
+        }
+
 }
